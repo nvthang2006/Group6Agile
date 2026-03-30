@@ -19,7 +19,7 @@ class UserService
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']), // Mã hóa pass
+           'password' => $data['password'], // Mã hóa pass
             'role' => $data['role'] ?? 0,
         ]);
     }
@@ -35,7 +35,7 @@ class UserService
 
         // Chỉ cập nhật mật khẩu nếu người dùng nhập pass mới
         if (!empty($data['password'])) {
-            $updateData['password'] = Hash::make($data['password']);
+            $updateData['password'] = $data['password'];
         }
 
         return $user->update($updateData);

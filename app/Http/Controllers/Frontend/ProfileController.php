@@ -44,7 +44,7 @@ class ProfileController extends Controller
 
         $user = Auth::user();
         $user->update([
-            'password' => Hash::make($request->password),
+           'password' => $request->password,
         ]);
 
         return back()->with('success', 'Đổi mật khẩu an toàn! 🔒');
