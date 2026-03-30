@@ -1,8 +1,8 @@
 <?php
-
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Frontend\ProfileController;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -32,4 +32,23 @@ Route::middleware(['auth', 'is_admin'])->prefix('admin')->group(function () {
     })->name('admin.dashboard');
     
     // Sau này Sprint 2 CRUD Categories, Products bạn sẽ nhét vào đây
+});
+Route::middleware('auth')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    
+    // --- Bổ sung 3 dòng này cho Duy ---
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password');
+});
+// Nhóm Route dành riêng cho Admin
+Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(function () {
+    
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard'); // Đổi thành view dashboard của bạn
+    })->name('dashboard');
+    
+    // Đăng ký toàn bộ 7 route CRUD cho User Management
+    Route::resource('users', UserController::class);
+    
 });
