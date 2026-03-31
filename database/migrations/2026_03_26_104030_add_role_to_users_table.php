@@ -12,10 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->tinyInteger('role')->default(0)->comment('0: Khách, 1: Admin');
+            $table->tinyInteger('role')->default(0)->comment('0: Khách hàng, 1: Admin');
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
