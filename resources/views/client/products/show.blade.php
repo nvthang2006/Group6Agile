@@ -29,8 +29,8 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
             <!-- Image gallery placeholder -->
             <div class="relative h-[400px] lg:h-full bg-gray-100">
-                @if($product->image)
-                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="w-full h-full object-cover">
+                @if($product->image_url)
+                    <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-full h-full object-cover">
                 @else
                     <div class="flex items-center justify-center w-full h-full text-gray-400 font-medium">Không có ảnh</div>
                 @endif
@@ -123,8 +123,8 @@
             @foreach($relatedProducts as $tour)
             <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group">
                 <a href="{{ route('products.detail', $tour->slug) }}" class="block aspect-[4/3] relative overflow-hidden bg-gray-100">
-                    @if($tour->image)
-                        <img src="{{ asset('storage/' . $tour->image) }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    @if($tour->image_url)
+                        <img src="{{ $tour->image_url }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
                     @else
                         <div class="w-full h-full flex items-center justify-center text-gray-400 text-sm">No Image</div>
                     @endif

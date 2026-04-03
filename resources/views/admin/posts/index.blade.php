@@ -43,8 +43,8 @@
                     @forelse($posts as $post)
                         <tr>
                             <td>
-                                @if($post->image)
-                                    <img src="{{ Storage::url($post->image) }}" alt="Ảnh bài viết" class="post-img">
+                                @if($post->image_url)
+                                    <img src="{{ $post->image_url }}" alt="Ảnh bài viết" class="post-img">
                                 @else
                                     <span class="badge badge-light-dark">Không có ảnh</span>
                                 @endif

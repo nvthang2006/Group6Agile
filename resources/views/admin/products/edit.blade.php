@@ -56,8 +56,8 @@
         <div class="form-group">
             <label for="image">Ảnh Sản Phẩm Mới (Chọn để thay thế)</label>
             <input type="file" name="image" id="image" accept="image/*">
-            @if($product->image)
-                <img src="{{ Storage::url($product->image) }}" alt="Current Image">
+            @if($product->image_url)
+                <img src="{{ $product->image_url }}" alt="Current Image">
                 <small>Ảnh hiện tại</small>
             @endif
             @error('image')<div class="text-danger">{{ $message }}</div>@enderror

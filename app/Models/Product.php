@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 
 class Product extends Model
 {
@@ -28,5 +29,16 @@ class Product extends Model
     public function bookings()
     {
         return $this->hasMany(Booking::class);
+    }
+
+    public function getImageUrlAttribute(): ?string
+    {
+        if (!$this->image) {
+            return null;
+        }
+
+        return Storage::disk('public')->exists($this->image)
+            ? route('media.file', ['path' => $this->image])
+            : null;
     }
 }
