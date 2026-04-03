@@ -29,9 +29,9 @@
     </header>
 
     <!-- Featured Image -->
-    @if($post->image)
+    @if($post->image_url)
     <div class="w-full aspect-[16/9] md:aspect-[21/9] rounded-3xl overflow-hidden mb-12 shadow-sm bg-gray-100">
-        <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}" class="w-full h-full object-cover">
+        <img src="{{ $post->image_url }}" alt="{{ $post->title }}" class="w-full h-full object-cover">
     </div>
     @endif
 
@@ -62,8 +62,8 @@
             @foreach($recentPosts as $p)
                 <article class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition">
                     <a href="{{ route('posts.detail', $p->slug) }}" class="block aspect-[16/10] bg-gray-100 overflow-hidden">
-                        @if($p->image)
-                            <img src="{{ asset('storage/' . $p->image) }}" class="w-full h-full object-cover hover:scale-105 transition duration-500">
+                            @if($p->image_url)
+                                <img src="{{ $p->image_url }}" class="w-full h-full object-cover hover:scale-105 transition duration-500">
                         @else
                             <div class="w-full h-full flex items-center justify-center text-gray-400 text-sm">No Image</div>
                         @endif

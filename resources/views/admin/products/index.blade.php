@@ -44,8 +44,8 @@
                     @forelse($products as $product)
                         <tr>
                             <td>
-                                @if($product->image)
-                                    <img src="{{ Storage::url($product->image) }}" alt="Ảnh tour" class="product-img">
+                                @if($product->image_url)
+                                    <img src="{{ $product->image_url }}" alt="Ảnh tour" class="product-img">
                                 @else
                                     <span class="badge badge-light-dark">Không có ảnh</span>
                                 @endif

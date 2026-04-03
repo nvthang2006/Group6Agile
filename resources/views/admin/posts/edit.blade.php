@@ -31,8 +31,8 @@
         <div class="form-group">
             <label for="image">Thay đổi Ảnh minh họa</label>
             <input type="file" name="image" id="image" accept="image/*">
-            @if($post->image)
-                <img src="{{ Storage::url($post->image) }}" alt="Current Post Image">
+            @if($post->image_url)
+                <img src="{{ $post->image_url }}" alt="Current Post Image">
                 <small>Ảnh hiện tại</small>
             @endif
             @error('image')<div class="text-danger">{{ $message }}</div>@enderror

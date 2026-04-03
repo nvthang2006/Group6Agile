@@ -38,8 +38,8 @@
         @forelse($results as $tour)
             <div class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 border border-gray-100 group flex flex-col">
                 <div class="relative overflow-hidden aspect-[4/3]">
-                    @if($tour->image)
-                        <img src="{{ asset('storage/' . $tour->image) }}" alt="{{ $tour->name }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-in-out">
+                    @if($tour->image_url)
+                        <img src="{{ $tour->image_url }}" alt="{{ $tour->name }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-in-out">
                     @else
                         <div class="w-full h-full bg-gray-100 flex items-center justify-center text-gray-400">Không có ảnh</div>
                     @endif
