@@ -20,6 +20,161 @@
     <!-- BEGIN PAGE LEVEL STYLES -->
     @yield('page_css')
     <!-- END PAGE LEVEL STYLES -->
+    
+    <style>
+        /* Premium Admin Layout Enhancements */
+        .sidebar-wrapper {
+            box-shadow: 4px 0 20px rgba(0,0,0,0.03) !important;
+            border-right: none !important;
+            background: #ffffff !important;
+        }
+        .header-container {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02) !important;
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(10px);
+        }
+        #sidebar ul.menu-categories li.menu.active > a {
+            background: linear-gradient(135deg, #4361ee 0%, #3a53c4 100%) !important;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(67, 97, 238, 0.3) !important;
+            color: white !important;
+            margin: 0 10px;
+        }
+        #sidebar ul.menu-categories li.menu > a {
+            border-radius: 12px;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
+        #sidebar ul.menu-categories li.menu > a:hover {
+            background: #f1f5f9 !important;
+            transform: translateX(5px);
+        }
+        #sidebar ul.menu-categories li.menu.active > a svg,
+        #sidebar ul.menu-categories li.menu.active > a span {
+            color: white !important;
+        }
+        .navbar .navbar-item .nav-item.dropdown.user-profile-dropdown .nav-link.user {
+            background: #f8fafc;
+            border-radius: 30px;
+            padding: 5px 15px 5px 5px !important;
+            display: flex;
+            align-items: center;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+        .navbar .navbar-item .nav-item.dropdown.user-profile-dropdown .nav-link.user:hover {
+            background: #f1f5f9;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .navbar .navbar-item.theme-brand {
+            background: transparent !important;
+        }
+        .nav-logo .theme-text a {
+            font-weight: 800 !important;
+            background: linear-gradient(135deg, #4361ee 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Global Card & Table Frames Enhancements */
+        .widget-content-area {
+            background: #ffffff;
+            border-radius: 16px !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03) !important;
+            border: 1px solid rgba(226, 232, 240, 0.8) !important;
+            padding: 24px !important;
+            transition: all 0.3s ease;
+        }
+        .widget-content-area:hover {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06) !important;
+        }
+        
+        /* Datatable Customization */
+        .table > thead > tr > th {
+            border-bottom: 2px solid #f1f5f9 !important;
+            color: #64748b !important;
+            font-weight: 700 !important;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+            padding: 16px 20px !important;
+            background: #f8fafc !important;
+        }
+        .table > tbody > tr > td {
+            border-bottom: 1px solid #f1f5f9 !important;
+            padding: 16px 20px !important;
+            color: #475569;
+            vertical-align: middle;
+        }
+        .table-hover tbody tr:hover {
+            background-color: #f8fafc !important;
+            transform: scale(1.001);
+        }
+        
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, #4361ee 0%, #3a53c4 100%) !important;
+            border: none !important;
+            box-shadow: 0 4px 10px rgba(67, 97, 238, 0.2) !important;
+            border-radius: 8px !important;
+            font-weight: 600;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(67, 97, 238, 0.3) !important;
+        }
+        .btn-warning {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+            border: none !important;
+            box-shadow: 0 4px 10px rgba(245, 158, 11, 0.2) !important;
+            color: white !important;
+            border-radius: 8px !important;
+        }
+        .btn-danger {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
+            border: none !important;
+            box-shadow: 0 4px 10px rgba(239, 68, 68, 0.2) !important;
+            border-radius: 8px !important;
+        }
+        
+        /* Pagination & Search Frames */
+        .dataTables_filter input {
+            border-radius: 8px !important;
+            border: 1px solid #e2e8f0 !important;
+            background: #f8fafc !important;
+            padding: 8px 16px !important;
+            box-shadow: none !important;
+            transition: all 0.3s ease;
+        }
+        .dataTables_filter input:focus {
+            border-color: #4361ee !important;
+            background: #ffffff !important;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1) !important;
+        }
+        .dataTables_length select {
+            border-radius: 8px !important;
+            border: 1px solid #e2e8f0 !important;
+            padding: 8px 30px 8px 16px !important;
+        }
+        .page-item.active .page-link {
+            background: linear-gradient(135deg, #4361ee 0%, #3a53c4 100%) !important;
+            border-color: transparent !important;
+            box-shadow: 0 4px 10px rgba(67, 97, 238, 0.3) !important;
+            border-radius: 8px !important;
+        }
+        .page-link {
+            border-radius: 8px !important;
+            margin: 0 4px;
+            border: 1px solid #e2e8f0 !important;
+            color: #475569 !important;
+        }
+        .page-link:hover {
+            background: #f1f5f9 !important;
+        }
+        .dt--bottom-section {
+            margin-top: 20px !important;
+        }
+    </style>
 </head>
 <body class="layout-boxed">
     <!-- BEGIN LOADER -->
@@ -221,21 +376,17 @@
                                 <a href="javascript:void(0);" class="btn-toggle sidebarCollapse" data-placement="bottom">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
                                 </a>
-                                <div class="d-flex breadcrumb-content">
-                                    {{-- <div class="page-header">
-
-                                        <div class="page-title">
-                                        </div>
-
-                                        <nav class="breadcrumb-style-one" aria-label="breadcrumb">
-                                            <ol class="breadcrumb">
-                                                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Admin</a></li>
-                                                @yield('breadcrumb')
-                                            </ol>
-                                        </nav>
-
-                                    </div> --}}
+                            <div class="d-flex breadcrumb-content">
+                                <div class="page-header">
+                                    <div class="page-title"></div>
+                                    <nav class="breadcrumb-style-one" aria-label="breadcrumb">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Admin</a></li>
+                                            @yield('breadcrumb')
+                                        </ol>
+                                    </nav>
                                 </div>
+                            </div>
                             </header>
                         </div>
                     </div>
