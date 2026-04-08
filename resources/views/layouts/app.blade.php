@@ -14,41 +14,77 @@
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
 
     <!-- Header / Navigation -->
-    <header class="bg-white shadow-sm sticky top-0 z-50">
+    <header class="bg-white/90 backdrop-blur-lg border-b border-gray-100/50 shadow-[0_4px_30px_rgba(0,0,0,0.03)] sticky top-0 z-50 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
+            <div class="flex justify-between h-20 items-center">
                 <!-- Logo -->
-                <a href="{{ route('home') }}" class="flex items-center gap-2">
-                    <span class="text-2xl font-bold text-blue-600">🌍 Tour Manager</span>
+                <a href="{{ route('home') }}" class="flex items-center gap-2 group">
+                    <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg group-hover:shadow-blue-500/30 group-hover:-translate-y-0.5 transition-all duration-300">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <span class="text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 tracking-tight">TourManager</span>
                 </a>
 
                 <!-- Navigation Links & Search -->
-                <nav class="hidden md:flex space-x-6 items-center">
-                    <a href="{{ route('home') }}" class="text-gray-600 hover:text-blue-600 font-medium pb-1 {{ request()->routeIs('home') ? 'border-b-2 border-blue-600 text-blue-600' : '' }}">Trang chủ</a>
-                    <a href="{{ route('home') }}#tours" class="text-gray-600 hover:text-blue-600 font-medium pb-1">Tours</a>
-                    <a href="{{ route('home') }}#tin-tuc" class="text-gray-600 hover:text-blue-600 font-medium pb-1">Tin tức</a>
+                <nav class="hidden md:flex flex-1 justify-center space-x-1 lg:space-x-4 items-center">
+                    <a href="{{ route('home') }}" class="relative px-4 py-2 text-sm font-semibold {{ request()->routeIs('home') ? 'text-blue-600' : 'text-gray-600 hover:text-blue-600' }} transition-colors group">
+                        Trang chủ
+                        <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/2 h-0.5 bg-blue-600 rounded-full transition-all duration-300 {{ request()->routeIs('home') ? 'opacity-100' : 'opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100' }}"></span>
+                    </a>
+                    <a href="{{ route('home') }}#tours" class="relative px-4 py-2 text-sm font-semibold text-gray-600 hover:text-blue-600 transition-colors group">
+                        Khám phá Tours
+                        <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/2 h-0.5 bg-blue-600 rounded-full transition-all duration-300 opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100"></span>
+                    </a>
+                    <a href="{{ route('home') }}#tin-tuc" class="relative px-4 py-2 text-sm font-semibold text-gray-600 hover:text-blue-600 transition-colors group">
+                        Cẩm nang & Tin tức
+                        <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/2 h-0.5 bg-blue-600 rounded-full transition-all duration-300 opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100"></span>
+                    </a>
                     
-                    <form action="{{ route('search') }}" method="GET" class="relative hidden lg:block border rounded-full overflow-hidden transition-all duration-300 focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500">
-                        <input type="text" name="q" placeholder="Hạ Long, Đà Lạt..." class="bg-gray-50 border-none text-sm w-48 focus:w-64 transition-all duration-300 px-4 py-2 focus:bg-white focus:outline-none focus:ring-0">
-                        <button type="submit" class="absolute right-0 top-0 bottom-0 px-3 text-gray-500 hover:text-blue-600 hover:bg-gray-100 flex items-center justify-center">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                        </button>
-                    </form>
+                    <div class="pl-4 border-l border-gray-200 hidden lg:block">
+                        <form action="{{ route('search') }}" method="GET" class="relative group">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <svg class="w-4 h-4 text-gray-400 group-focus-within:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                            </div>
+                            <input type="text" name="q" placeholder="Bạn muốn đi đâu?" class="block w-48 pl-10 pr-3 py-2 border border-transparent rounded-full leading-5 bg-gray-100/50 text-gray-900 placeholder-gray-500 focus:outline-none focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:w-64 transition-all duration-300 sm:text-sm shadow-inner">
+                        </form>
+                    </div>
                 </nav>
 
                 <!-- Auth / Admin Links -->
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-3">
                     @auth
                         @if(auth()->user()->role == 1)
-                            <a href="{{ route('admin.dashboard') }}" class="text-sm font-medium text-red-600 border border-red-600 px-4 py-2 rounded-lg hover:bg-red-50 hover:border-red-700 transition">🛡️ Quản trị</a>
+                            <a href="{{ route('admin.dashboard') }}" class="hidden sm:inline-flex items-center justify-center text-sm font-bold text-gray-700 bg-gray-100/80 px-4 py-2 rounded-full hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 shadow-sm border border-gray-200/50 gap-2">
+                                <svg class="w-4 h-4 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                                Bảng Quản trị
+                            </a>
                         @endif
-                        <form method="POST" action="{{ route('logout') }}" class="inline">
-                            @csrf
-                            <button type="submit" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition">Đăng xuất</button>
-                        </form>
+                        
+                        <div class="relative group ml-2">
+                            <button class="flex items-center gap-2 justify-center font-semibold text-gray-700 hover:text-blue-600 transition-colors">
+                                <div class="w-8 h-8 rounded-full bg-gradient-to-r from-blue-100 to-indigo-100 flex items-center justify-center text-blue-600 border border-blue-200">
+                                    {{ substr(auth()->user()->name, 0, 1) }}
+                                </div>
+                                <span class="hidden sm:block text-sm">{{ explode(' ', auth()->user()->name)[0] }}</span>
+                                <svg class="w-4 h-4 text-gray-400 group-hover:text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+                            <!-- Dropdown -->
+                            <div class="absolute right-0 w-48 mt-2 origin-top-right bg-white rounded-xl shadow-xl ring-1 ring-black/5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 translate-y-2 group-hover:translate-y-0">
+                                <div class="py-1">
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 hover:text-red-700 transition-colors font-medium">
+                                            Đăng xuất
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     @else
-                        <a href="{{ route('login') }}" class="text-sm font-medium text-blue-600 hover:text-blue-800 transition">Đăng nhập</a>
-                        <a href="{{ route('register') }}" class="text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg shadow-sm transition transform hover:-translate-y-0.5">Đăng ký</a>
+                        <a href="{{ route('login') }}" class="text-sm font-bold text-gray-600 hover:text-blue-600 px-3 py-2 transition-colors">Đăng nhập</a>
+                        <a href="{{ route('register') }}" class="text-sm font-bold text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 px-5 py-2.5 rounded-full shadow-md hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300 transform hover:-translate-y-0.5 border border-transparent">
+                            Đăng ký ngay
+                        </a>
                     @endauth
                 </div>
             </div>
