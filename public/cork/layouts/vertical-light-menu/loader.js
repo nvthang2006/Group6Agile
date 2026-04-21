@@ -69,9 +69,9 @@ window.addEventListener("load", function(){
             ifStarterKit = document.body.getAttribute('page') === 'starter-pack' ? true : false;
             document.body.classList.add('dark');
             if (ifStarterKit) {
-                if (document.querySelector('.navbar-logo')) {
-                    document.querySelector('.navbar-logo').setAttribute('src', 'https://designreset.com/cork/src/assets/img/logo.svg')
-                }
+                        if (document.querySelector('.navbar-logo')) {
+                            document.querySelector('.navbar-logo').setAttribute('src', '/cork/src/assets/img/cork-logo.png')
+                        }
             } else {
                 if (document.querySelector('.navbar-logo')) {
                     document.querySelector('.navbar-logo').setAttribute('src', getParseObject.settings.layout.logo.darkLogo)
@@ -88,7 +88,7 @@ window.addEventListener("load", function(){
             document.body.classList.remove('dark');
             if (ifStarterKit) {
                 if (document.querySelector('.navbar-logo')) {
-                    document.querySelector('.navbar-logo').setAttribute('src', 'https://designreset.com/cork/src/assets/img/logo2.svg')
+                    document.querySelector('.navbar-logo').setAttribute('src', '/cork/src/assets/img/cork-logo.png')
                 }
             } else {
                 if (document.querySelector('.navbar-logo')) {

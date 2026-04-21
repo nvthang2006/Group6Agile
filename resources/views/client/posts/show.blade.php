@@ -36,8 +36,8 @@
     @endif
 
     <!-- Content -->
-    <article class="prose prose-lg prose-blue max-w-none text-gray-700 leading-loose prose-img:rounded-2xl mx-auto whitespace-pre-line">
-        {!! nl2br(e($post->content)) !!}
+    <article class="prose prose-lg prose-blue max-w-none text-gray-700 leading-loose prose-img:rounded-2xl mx-auto">
+        {!! $post->content !!}
     </article>
 
     <!-- Share & Tags (Mockup) -->

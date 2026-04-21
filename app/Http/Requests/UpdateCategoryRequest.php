@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
 
 class UpdateCategoryRequest extends FormRequest
@@ -22,11 +23,12 @@ class UpdateCategoryRequest extends FormRequest
      */
     public function rules(): array
     {
-        // Require name and ignore the current category's slug if we were validating slug explicitly
-        // Here we just validate the 'name' and we will generate slug on the fly if needed
+        $category = $this->route('category');
+        $categoryId = is_object($category) ? $category->id : $category;
+
         return [
             'name' => 'required|string|max:255',
-            'slug' => 'required|string',
+            'slug' => ['required', 'string', 'max:255', Rule::unique('categories', 'slug')->ignore($categoryId)],
             'description' => 'nullable|string',
         ];
     }

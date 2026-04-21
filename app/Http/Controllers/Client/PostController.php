@@ -8,6 +8,22 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+    public function index(Request $request)
+    {
+        $search = trim((string) $request->query('q', ''));
+
+        $posts = Post::query()
+            ->when($search !== '', function ($query) use ($search) {
+                $query->where('title', 'like', "%{$search}%")
+                    ->orWhere('content', 'like', "%{$search}%");
+            })
+            ->latest('created_at')
+            ->paginate(12)
+            ->withQueryString();
+
+        return view('client.posts.index', compact('posts', 'search'));
+    }
+
     /**
      * Display the specified resource for public.
      */

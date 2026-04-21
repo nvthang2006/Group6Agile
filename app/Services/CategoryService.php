@@ -6,14 +6,18 @@ use App\Models\Category;
 
 class CategoryService
 {
-    /**
-     * Lấy toàn bộ danh sách danh mục và sắp xếp mới nhất
-     */
-    public function getAllCategories()
+    public function getAllCategories($search = null)
     {
-        // Tuân thủ quy tắc Laravel chuyên nghiệp: Dùng Eloquent Model thay vì DB facade, 
-        // phục vụ dễ dàng tích hợp SoftDeletes và relationship
-        return Category::latest('created_at')->get();
+        $query = Category::query();
+        if ($search) {
+            $query->where('name', 'LIKE', "%{$search}%");
+        }
+        return $query->latest('created_at')->get();
+    }
+
+    public function getTrashedCategories()
+    {
+        return Category::onlyTrashed()->latest('deleted_at')->get();
     }
 
     public function createCategory(array $data)
@@ -21,9 +25,11 @@ class CategoryService
         return Category::create($data);
     }
 
-    public function getCategoryById($id)
+    public function getCategoryById($id, $withTrashed = false)
     {
-        return Category::findOrFail($id);
+        return $withTrashed 
+            ? Category::withTrashed()->findOrFail($id) 
+            : Category::findOrFail($id);
     }
 
     public function updateCategory($id, array $data)
@@ -37,5 +43,17 @@ class CategoryService
     {
         $category = $this->getCategoryById($id);
         return $category->delete(); // Sử dụng Soft Deletes
+    }
+
+    public function restoreCategory($id)
+    {
+        $category = $this->getCategoryById($id, true);
+        return $category->restore();
+    }
+
+    public function forceDeleteCategory($id)
+    {
+        $category = $this->getCategoryById($id, true);
+        return $category->forceDelete();
     }
 }

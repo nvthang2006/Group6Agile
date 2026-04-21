@@ -1,10 +1,10 @@
-﻿@extends('layouts.admin')
+@extends('layouts.admin')
 
 @section('title', 'Sửa sản phẩm - Tour Manager')
 @section('page_heading', 'Sản phẩm')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('products.index') }}">Sản phẩm</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('admin.products.index') }}">Sản phẩm</a></li>
     <li class="breadcrumb-item active" aria-current="page">Chỉnh sửa</li>
 @endsection
 
@@ -16,7 +16,7 @@
                     <h3 class="mb-1">Chỉnh sửa sản phẩm</h3>
                     <p class="text-muted mb-0">Cập nhật thông tin tour: <strong>{{ $product->name }}</strong>.</p>
                 </div>
-                <a href="{{ route('products.index') }}" class="btn btn-outline-secondary">Quay lại</a>
+                <a href="{{ route('admin.products.index') }}" class="btn btn-outline-secondary">Quay lại</a>
             </div>
 
             @include('admin.products._form', ['product' => $product, 'categories' => $categories])

@@ -21,10 +21,38 @@ class ProductController extends AdminBaseController
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = $this->productService->getAllProducts();
-        return view('admin.products.index', compact('products'));
+        $search = $request->query('q');
+        $products = $this->productService->getAllProducts($search);
+        return view('admin.products.index', compact('products', 'search'));
+    }
+
+    /**
+     * Danh sách đã xóa mềm (Thùng rác)
+     */
+    public function trash()
+    {
+        $products = $this->productService->getTrashedProducts();
+        return view('admin.products.trash', compact('products'));
+    }
+
+    /**
+     * Khôi phục sản phẩm
+     */
+    public function restore($id)
+    {
+        $this->productService->restoreProduct($id);
+        return redirect()->route('admin.products.trash')->with('success', 'Khôi phục sản phẩm thành công!');
+    }
+
+    /**
+     * Xóa vĩnh viễn
+     */
+    public function forceDelete($id)
+    {
+        $this->productService->forceDeleteProduct($id);
+        return redirect()->route('admin.products.trash')->with('success', 'Đã xóa vĩnh viễn sản phẩm!');
     }
 
     /**
@@ -42,7 +70,7 @@ class ProductController extends AdminBaseController
     public function store(StoreProductRequest $request)
     {
         $this->productService->createProduct($request->validated(), $request->file('image'));
-        return redirect()->route('products.index')->with('success', 'Thêm sản phẩm thành công!');
+        return redirect()->route('admin.products.index')->with('success', 'Thêm sản phẩm thành công!');
     }
 
     /**
@@ -68,7 +96,7 @@ class ProductController extends AdminBaseController
     public function update(UpdateProductRequest $request, Product $product)
     {
         $this->productService->updateProduct($product->id, $request->validated(), $request->file('image'));
-        return redirect()->route('products.index')->with('success', 'Cập nhật sản phẩm thành công!');
+        return redirect()->route('admin.products.index')->with('success', 'Cập nhật sản phẩm thành công!');
     }
 
     /**
@@ -77,6 +105,6 @@ class ProductController extends AdminBaseController
     public function destroy(Product $product)
     {
         $this->productService->deleteProduct($product->id);
-        return redirect()->route('products.index')->with('success', 'Đã xóa sản phẩm thành công!');
+        return redirect()->route('admin.products.index')->with('success', 'Đã xóa sản phẩm thành công!');
     }
 }

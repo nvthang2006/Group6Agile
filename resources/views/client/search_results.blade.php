@@ -51,15 +51,15 @@
                     <h3 class="text-2xl font-bold text-gray-900 mb-3 line-clamp-2 leading-snug group-hover:text-blue-600 transition-colors">
                         <a href="{{ route('products.detail', $tour->slug) }}">{{ $tour->name }}</a>
                     </h3>
-                    <p class="text-gray-500 text-sm mb-6 line-clamp-3 flex-grow">{{ $tour->description }}</p>
+                    <p class="text-gray-500 text-sm mb-6 line-clamp-3 flex-grow">{{ strip_tags($tour->description) }}</p>
                     
                     <div class="flex justify-between items-center mt-auto border-t border-gray-100 pt-6">
                         <div class="flex flex-col">
                             @if($tour->sale_price)
-                                <span class="text-xl font-extrabold text-red-500">{{ number_format($tour->sale_price, 0, ',', '.') }}đ</span>
+                                <span class="text-xl font-bold text-red-500">{{ number_format($tour->sale_price, 0, ',', '.') }}đ</span>
                                 <span class="text-sm font-semibold text-gray-400 line-through">{{ number_format($tour->price, 0, ',', '.') }}đ</span>
                             @else
-                                <span class="text-xl font-extrabold text-blue-600">{{ number_format($tour->price, 0, ',', '.') }}đ</span>
+                                <span class="text-xl font-bold text-blue-600">{{ number_format($tour->price, 0, ',', '.') }}đ</span>
                             @endif
                         </div>
                         <a href="{{ route('products.detail', $tour->slug) }}" class="inline-flex items-center justify-center bg-gray-50 text-blue-600 font-bold rounded-xl px-5 py-2.5 hover:bg-blue-600 hover:text-white transition-all duration-300">

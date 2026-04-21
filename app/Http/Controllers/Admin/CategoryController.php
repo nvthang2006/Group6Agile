@@ -19,10 +19,38 @@ class CategoryController extends AdminBaseController
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $categories = $this->categoryService->getAllCategories();
-        return view('admin.categories.index', compact('categories'));
+        $search = $request->query('q');
+        $categories = $this->categoryService->getAllCategories($search);
+        return view('admin.categories.index', compact('categories', 'search'));
+    }
+
+    /**
+     * Danh sách đã xóa mềm (Thùng rác)
+     */
+    public function trash()
+    {
+        $categories = $this->categoryService->getTrashedCategories();
+        return view('admin.categories.trash', compact('categories'));
+    }
+
+    /**
+     * Khôi phục danh mục
+     */
+    public function restore($id)
+    {
+        $this->categoryService->restoreCategory($id);
+        return redirect()->route('categories.trash')->with('success', 'Khôi phục danh mục thành công!');
+    }
+
+    /**
+     * Xóa vĩnh viễn
+     */
+    public function forceDelete($id)
+    {
+        $this->categoryService->forceDeleteCategory($id);
+        return redirect()->route('categories.trash')->with('success', 'Đã xóa vĩnh viễn danh mục!');
     }
 
     /**

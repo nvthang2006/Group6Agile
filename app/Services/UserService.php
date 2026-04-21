@@ -7,10 +7,28 @@ use Illuminate\Support\Facades\Hash;
 
 class UserService
 {
-    // Lấy danh sách phân trang
-    public function getPaginated($perPage = 10)
+    public function getPaginated($perPage = 10, $search = null)
     {
-        return User::orderBy('id', 'desc')->paginate($perPage);
+        $query = User::query();
+        if ($search) {
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'LIKE', "%{$search}%")
+                  ->orWhere('email', 'LIKE', "%{$search}%");
+            });
+        }
+        return $query->orderBy('id', 'desc')->get(); // Changed to get() for DataTables support
+    }
+
+    public function getTrashed($perPage = 10)
+    {
+        return User::onlyTrashed()->orderBy('deleted_at', 'desc')->paginate($perPage);
+    }
+
+    public function getById($id, $withTrashed = false)
+    {
+        return $withTrashed 
+            ? User::withTrashed()->findOrFail($id) 
+            : User::findOrFail($id);
     }
 
     // Thêm mới tài khoản
@@ -19,7 +37,7 @@ class UserService
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-           'password' => $data['password'], // Mã hóa pass
+            'password' => $data['password'], // Đã dùng Hashed cast trong Model
             'role' => $data['role'] ?? 0,
         ]);
     }
@@ -41,9 +59,21 @@ class UserService
         return $user->update($updateData);
     }
 
-    // Xóa tài khoản (Có thể làm xóa mềm sau nếu muốn)
+    // Xóa tài khoản
     public function delete(User $user)
     {
         return $user->delete();
+    }
+
+    public function restore($id)
+    {
+        $user = $this->getById($id, true);
+        return $user->restore();
+    }
+
+    public function forceDelete($id)
+    {
+        $user = $this->getById($id, true);
+        return $user->forceDelete();
     }
 }

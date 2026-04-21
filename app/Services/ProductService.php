@@ -8,10 +8,19 @@ use Illuminate\Http\UploadedFile;
 
 class ProductService
 {
-    public function getAllProducts()
+    public function getAllProducts($search = null)
     {
-        // Kèm theo danh mục (Eager Loading)
-        return Product::with('category')->latest('created_at')->get();
+        $query = Product::with('category');
+        if ($search) {
+            $query->where('name', 'LIKE', "%{$search}%")
+                  ->orWhere('description', 'LIKE', "%{$search}%");
+        }
+        return $query->latest('created_at')->get();
+    }
+
+    public function getTrashedProducts()
+    {
+        return Product::onlyTrashed()->with('category')->latest('deleted_at')->get();
     }
 
     public function createProduct(array $data, ?UploadedFile $image = null)
@@ -23,9 +32,11 @@ class ProductService
         return Product::create($data);
     }
 
-    public function getProductById($id)
+    public function getProductById($id, $withTrashed = false)
     {
-        return Product::findOrFail($id);
+        return $withTrashed 
+            ? Product::withTrashed()->findOrFail($id) 
+            : Product::findOrFail($id);
     }
 
     public function updateProduct($id, array $data, ?UploadedFile $image = null)
@@ -33,7 +44,7 @@ class ProductService
         $product = $this->getProductById($id);
 
         if ($image) {
-            // Xóa ảnh cũ nếu có (Cơ chế tùy chọn)
+            // Xóa ảnh cũ nếu có
             if ($product->image && Storage::disk('public')->exists($product->image)) {
                 Storage::disk('public')->delete($product->image);
             }
@@ -47,9 +58,21 @@ class ProductService
     public function deleteProduct($id)
     {
         $product = $this->getProductById($id);
-        
-        // Không xóa ảnh vật lý nếu dùng SoftDelete, nếu muốn xóa có thể kích hoạt ở đây.
-        
         return $product->delete();
+    }
+
+    public function restoreProduct($id)
+    {
+        $product = $this->getProductById($id, true);
+        return $product->restore();
+    }
+
+    public function forceDeleteProduct($id)
+    {
+        $product = $this->getProductById($id, true);
+        if ($product->image && Storage::disk('public')->exists($product->image)) {
+            Storage::disk('public')->delete($product->image);
+        }
+        return $product->forceDelete();
     }
 }

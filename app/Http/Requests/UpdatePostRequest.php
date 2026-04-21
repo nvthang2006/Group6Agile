@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdatePostRequest extends FormRequest
 {
@@ -22,9 +23,12 @@ class UpdatePostRequest extends FormRequest
      */
     public function rules(): array
     {
+        $post = $this->route('post');
+        $postId = is_object($post) ? $post->id : $post;
+
         return [
             'title' => 'required|string|max:255',
-            'slug' => 'required|string',
+            'slug' => ['required', 'string', 'max:255', Rule::unique('posts', 'slug')->ignore($postId)],
             'content' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ];

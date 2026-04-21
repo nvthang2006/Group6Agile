@@ -16,11 +16,39 @@ class UserController extends Controller
         $this->userService = $userService;
     }
 
-    // Hiển thị danh sách
-    public function index()
+    // Hiển thị danh sách và tìm kiếm
+    public function index(Request $request)
     {
-        $users = $this->userService->getPaginated(10);
-        return view('admin.users.index', compact('users'));
+        $search = $request->query('q');
+        $users = $this->userService->getPaginated(10, $search);
+        return view('admin.users.index', compact('users', 'search'));
+    }
+
+    /**
+     * Danh sách đã xóa mềm (Thùng rác)
+     */
+    public function trash()
+    {
+        $users = $this->userService->getTrashed(10);
+        return view('admin.users.trash', compact('users'));
+    }
+
+    /**
+     * Khôi phục tài khoản
+     */
+    public function restore($id)
+    {
+        $this->userService->restore($id);
+        return redirect()->route('admin.users.trash')->with('success', 'Khôi phục tài khoản thành công!');
+    }
+
+    /**
+     * Xóa vĩnh viễn
+     */
+    public function forceDelete($id)
+    {
+        $this->userService->forceDelete($id);
+        return redirect()->route('admin.users.trash')->with('success', 'Đã xóa vĩnh viễn tài khoản!');
     }
 
     // Form thêm mới
@@ -49,6 +77,12 @@ class UserController extends Controller
         return view('admin.users.edit', compact('user'));
     }
 
+    // Form chi tiet
+    public function show(User $user)
+    {
+        return view('admin.users.show', compact('user'));
+    }
+
     // Lưu chỉnh sửa
     public function update(Request $request, User $user)
     {
@@ -75,3 +109,4 @@ class UserController extends Controller
         return redirect()->route('admin.users.index')->with('success', 'Đã xóa tài khoản!');
     }
 }
+

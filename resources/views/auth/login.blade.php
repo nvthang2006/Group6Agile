@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
@@ -28,7 +28,7 @@
 
     <div class="glass-panel w-full max-w-md rounded-2xl shadow-2xl p-8 relative z-10 transition-all duration-300 hover:shadow-blue-500/20 hover:shadow-2xl">
         <div class="text-center mb-8">
-            <h1 class="text-3xl font-extrabold text-gray-900 mb-2 tracking-tight">Chào mừng trở lại</h1>
+            <h1 class="text-3xl font-bold text-gray-900 mb-2 tracking-tight">Chào mừng trở lại</h1>
             <p class="text-gray-500 text-sm">Đăng nhập để quản lý hệ thống tour của bạn</p>
         </div>
 

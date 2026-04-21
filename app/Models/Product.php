@@ -31,10 +31,19 @@ class Product extends Model
         return $this->hasMany(Booking::class);
     }
 
+    public function departures()
+    {
+        return $this->hasMany(Departure::class);
+    }
+
     public function getImageUrlAttribute(): ?string
     {
         if (!$this->image) {
             return null;
+        }
+
+        if (filter_var($this->image, FILTER_VALIDATE_URL)) {
+            return $this->image;
         }
 
         return Storage::disk('public')->exists($this->image)

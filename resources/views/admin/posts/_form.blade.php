@@ -1,6 +1,6 @@
 ﻿@php($isEdit = isset($post))
 
-<form action="{{ $isEdit ? route('posts.update', $post->id) : route('posts.store') }}" method="POST" enctype="multipart/form-data" class="row g-4">
+<form action="{{ $isEdit ? route('admin.posts.update', $post->id) : route('admin.posts.store') }}" method="POST" enctype="multipart/form-data" class="row g-4">
     @csrf
     @if($isEdit)
         @method('PUT')
@@ -67,9 +67,36 @@
                 <button type="submit" class="btn btn-primary btn-lg">
                     {{ $isEdit ? 'Cập nhật bài viết' : 'Lưu bài viết' }}
                 </button>
-                <a href="{{ route('posts.index') }}" class="btn btn-outline-secondary">Hủy</a>
+                <a href="{{ route('admin.posts.index') }}" class="btn btn-outline-secondary">Hủy</a>
             </div>
         </div>
     </div>
 </form>
 
+
+@section('page_js')
+<script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('content', {
+        height: 500,
+        removeButtons: 'PasteFromWord',
+        toolbarGroups: [
+            { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
+            { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
+            { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
+            { name: 'forms', groups: [ 'forms' ] },
+            '/',
+            { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+            { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
+            { name: 'links', groups: [ 'links' ] },
+            { name: 'insert', groups: [ 'insert' ] },
+            '/',
+            { name: 'styles', groups: [ 'styles' ] },
+            { name: 'colors', groups: [ 'colors' ] },
+            { name: 'tools', groups: [ 'tools' ] },
+            { name: 'others', groups: [ 'others' ] },
+            { name: 'about', groups: [ 'about' ] }
+        ]
+    });
+</script>
+@endsection

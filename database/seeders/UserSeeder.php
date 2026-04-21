@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
@@ -12,21 +12,21 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        // Tài khoản Admin
-        \App\Models\User::firstOrCreate(
+        // Default admin account
+        User::firstOrCreate(
             ['email' => 'admin@tour.com'],
             [
-                'name' => 'Quản Trị Viên',
+                'name' => 'Admin User',
                 'password' => bcrypt('12345678'),
                 'role' => 1,
             ]
         );
 
-        // Tài khoản Khách hàng
-        \App\Models\User::firstOrCreate(
+        // Default customer account
+        User::firstOrCreate(
             ['email' => 'customer@tour.com'],
             [
-                'name' => 'Khách Hàng',
+                'name' => 'Customer User',
                 'password' => bcrypt('12345678'),
                 'role' => 0,
             ]

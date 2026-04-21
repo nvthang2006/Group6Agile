@@ -20,10 +20,38 @@ class PostController extends AdminBaseController
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $posts = $this->postService->getAllPosts();
-        return view('admin.posts.index', compact('posts'));
+        $search = $request->query('q');
+        $posts = $this->postService->getAllPosts($search);
+        return view('admin.posts.index', compact('posts', 'search'));
+    }
+
+    /**
+     * Danh sách đã xóa mềm (Thùng rác)
+     */
+    public function trash()
+    {
+        $posts = $this->postService->getTrashedPosts();
+        return view('admin.posts.trash', compact('posts'));
+    }
+
+    /**
+     * Khôi phục bài viết
+     */
+    public function restore($id)
+    {
+        $this->postService->restorePost($id);
+        return redirect()->route('admin.posts.trash')->with('success', 'Khôi phục bài viết thành công!');
+    }
+
+    /**
+     * Xóa vĩnh viễn
+     */
+    public function forceDelete($id)
+    {
+        $this->postService->forceDeletePost($id);
+        return redirect()->route('admin.posts.trash')->with('success', 'Đã xóa vĩnh viễn bài viết!');
     }
 
     /**
@@ -40,7 +68,7 @@ class PostController extends AdminBaseController
     public function store(StorePostRequest $request)
     {
         $this->postService->createPost($request->validated(), $request->file('image'));
-        return redirect()->route('posts.index')->with('success', 'Đăng bài viết thành công!');
+        return redirect()->route('admin.posts.index')->with('success', 'Đăng bài viết thành công!');
     }
 
     /**
@@ -65,7 +93,7 @@ class PostController extends AdminBaseController
     public function update(UpdatePostRequest $request, Post $post)
     {
         $this->postService->updatePost($post->id, $request->validated(), $request->file('image'));
-        return redirect()->route('posts.index')->with('success', 'Cập nhật bài viết thành công!');
+        return redirect()->route('admin.posts.index')->with('success', 'Cập nhật bài viết thành công!');
     }
 
     /**
@@ -74,6 +102,6 @@ class PostController extends AdminBaseController
     public function destroy(Post $post)
     {
         $this->postService->deletePost($post->id);
-        return redirect()->route('posts.index')->with('success', 'Đã xóa bài viết!');
+        return redirect()->route('admin.posts.index')->with('success', 'Đã xóa bài viết!');
     }
 }

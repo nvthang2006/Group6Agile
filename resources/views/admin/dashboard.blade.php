@@ -1,11 +1,12 @@
-@extends('layouts.admin')
+﻿@extends('layouts.admin')
 
 @section('title', 'Dashboard - Tour Manager')
 
 @section('page_heading', 'Dashboard')
 
+@section('hide_default_breadcrumb', true)
+
 @section('breadcrumb')
-    <li class="breadcrumb-item active" aria-current="page">Tổng quan</li>
 @endsection
 
 @section('page_css')
@@ -18,22 +19,22 @@
             --glass-bg: rgba(255, 255, 255, 0.7);
             --glass-border: rgba(255, 255, 255, 0.5);
             --shadow-sm: 0 4px 15px rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.1);
-            --shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.15);
+            --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.12);
         }
         
         .layout-px-spacing {
-            background-color: #f8fafc;
+            background-color: #f4f6f8;
         }
 
         .welcome-card {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 16px;
+            border-radius: 20px;
             padding: 30px;
             color: white;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 15px 30px rgba(118, 75, 162, 0.2);
+            box-shadow: 0 15px 30px rgba(118, 75, 162, 0.25);
             margin-bottom: 30px;
         }
 
@@ -48,25 +49,11 @@
             border-radius: 50%;
         }
 
-        .welcome-card h2 {
-            color: white;
-            font-size: 28px;
-            font-weight: 800;
-            margin-bottom: 10px;
-        }
-
-        .welcome-card p {
-            font-size: 16px;
-            opacity: 0.9;
-            margin-bottom: 0;
-            max-width: 600px;
-        }
-
         .stat-card {
             background: #ffffff;
-            border-radius: 16px;
+            border-radius: 20px;
             padding: 24px;
-            border: 1px solid rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(226, 232, 240, 0.8);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             box-shadow: var(--shadow-sm);
             position: relative;
@@ -80,9 +67,9 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 4px;
+            height: 5px;
             background: transparent;
-            transition: background 0.4s ease;
+            transition: height 0.3s ease;
         }
 
         .stat-card.card-users::before { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
@@ -93,12 +80,13 @@
         .stat-card:hover {
             transform: translateY(-8px);
             box-shadow: var(--shadow-hover);
+            border-color: transparent;
         }
 
         .stat-card .stat-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 14px;
+            width: 64px;
+            height: 64px;
+            border-radius: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -110,51 +98,40 @@
             transform: scale(1.1) rotate(5deg);
         }
 
-        .stat-card.card-users .stat-icon { background: rgba(59, 130, 246, 0.1); color: #3b82f6; box-shadow: 0 0 20px rgba(59, 130, 246, 0.1); }
-        .stat-card.card-tours .stat-icon { background: rgba(16, 185, 129, 0.1); color: #10b981; box-shadow: 0 0 20px rgba(16, 185, 129, 0.1); }
-        .stat-card.card-bookings .stat-icon { background: rgba(245, 158, 11, 0.1); color: #f59e0b; box-shadow: 0 0 20px rgba(245, 158, 11, 0.1); }
-        .stat-card.card-revenue .stat-icon { background: rgba(139, 92, 246, 0.1); color: #8b5cf6; box-shadow: 0 0 20px rgba(139, 92, 246, 0.1); }
+        .stat-card.card-users .stat-icon { background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0.05) 100%); color: #3b82f6; box-shadow: 0 0 20px rgba(59, 130, 246, 0.15); }
+        .stat-card.card-tours .stat-icon { background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(16, 185, 129, 0.05) 100%); color: #10b981; box-shadow: 0 0 20px rgba(16, 185, 129, 0.15); }
+        .stat-card.card-bookings .stat-icon { background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(245, 158, 11, 0.05) 100%); color: #f59e0b; box-shadow: 0 0 20px rgba(245, 158, 11, 0.15); }
+        .stat-card.card-revenue .stat-icon { background: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(139, 92, 246, 0.05) 100%); color: #8b5cf6; box-shadow: 0 0 20px rgba(139, 92, 246, 0.15); }
 
         .stat-card .stat-icon svg {
-            width: 28px;
-            height: 28px;
+            width: 30px;
+            height: 30px;
         }
 
         .stat-card h3 {
-            font-size: 32px;
+            font-size: 34px;
             font-weight: 800;
             margin: 0;
-            color: #1e293b;
-            letter-spacing: -0.5px;
+            color: #0f172a;
+            letter-spacing: -1px;
         }
 
         .stat-card p {
             font-size: 14px;
-            margin: 0 0 8px 0;
+            margin: 0 0 6px 0;
             color: #64748b;
             text-transform: uppercase;
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: 1px;
-        }
-
-        .widget-content-area {
-            border-radius: 16px;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid rgba(0,0,0,0.02);
-            transition: all 0.3s ease;
-        }
-        
-        .widget-content-area:hover {
-            box-shadow: var(--shadow-md);
         }
 
         .widget-title {
             font-size: 18px;
-            font-weight: 700;
-            color: #1e293b;
+            font-weight: 800;
+            color: #0f172a;
             margin-bottom: 24px;
             position: relative;
-            padding-left: 14px;
+            padding-left: 16px;
         }
         
         .widget-title::before {
@@ -163,15 +140,15 @@
             left: 0;
             top: 50%;
             transform: translateY(-50%);
-            width: 4px;
-            height: 18px;
-            background: #4361ee;
+            width: 5px;
+            height: 20px;
+            background: linear-gradient(180deg, #4361ee 0%, #3a53c4 100%);
             border-radius: 4px;
         }
 
         .booking-item {
             padding: 16px;
-            border-radius: 12px;
+            border-radius: 14px;
             background: #ffffff;
             border: 1px solid #f1f5f9;
             transition: all 0.3s ease;
@@ -182,31 +159,31 @@
 
         .booking-item:hover {
             background-color: #f8fafc;
-            transform: translateX(5px);
-            border-color: #e2e8f0;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            transform: translateX(6px);
+            border-color: #cbd5e1;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.04);
         }
 
         .booking-date-badge {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 800;
             line-height: 1.2;
             text-align: center;
             background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
             color: #0284c7;
-            box-shadow: 0 4px 10px rgba(2, 132, 199, 0.1);
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.15);
         }
 
         .booking-info h6 {
             font-size: 15px;
             font-weight: 700;
-            color: #1e293b;
+            color: #0f172a;
             margin-bottom: 4px;
         }
 
@@ -214,22 +191,23 @@
             font-size: 13px;
             color: #64748b;
             margin-bottom: 0;
+            font-weight: 500;
         }
 
         .booking-price {
             font-weight: 800;
             font-size: 14px;
-            color: #1e293b;
+            color: #0f172a;
             background: #f1f5f9;
             padding: 6px 12px;
             border-radius: 20px;
         }
 
         .badge-status {
-            padding: 6px 12px;
+            padding: 6px 14px;
             font-size: 11px;
             border-radius: 20px;
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: 0.5px;
             text-transform: uppercase;
         }
@@ -243,12 +221,12 @@
 
 @section('content')
 
-    <div class="col-12 layout-spacing">
+    {{-- <div class="col-12 layout-spacing">
         <div class="welcome-card">
-            <h2>Chào mừng trở lại, {{ Auth::user()->name ?? 'Admin' }}! 👋</h2>
+            <h2>Chào mừng trở lại, {{ Auth::user()->name ?? 'Admin' }}!</h2>
             <p>Đây là tổng quan về hoạt động hệ thống Tour Manager của bạn hôm nay. Chúc bạn một ngày làm việc hiệu quả!</p>
         </div>
-    </div>
+    </div> --}}
 
     {{-- Statistics Cards --}}
     <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 layout-spacing">
